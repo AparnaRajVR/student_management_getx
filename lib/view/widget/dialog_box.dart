@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // Import GetX package
+import 'package:get/get.dart'; 
 
 class DeleteDialog extends StatelessWidget {
   final VoidCallback onDelete;
@@ -15,7 +15,7 @@ class DeleteDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.warning, color: Colors.red, size: 50),
+            
             const SizedBox(height: 16),
             const Text(
               'Confirm Delete',
@@ -33,7 +33,7 @@ class DeleteDialog extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    Get.back(); // Close dialog using GetX
+                    Get.back(); 
                   },
                   child: const Text(
                     'Cancel',
@@ -42,8 +42,8 @@ class DeleteDialog extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    onDelete(); // Perform the delete action
-                    Get.back(); // Close dialog using GetX
+                    onDelete(); 
+                    Get.back(); 
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                   child: const Text('Delete'),

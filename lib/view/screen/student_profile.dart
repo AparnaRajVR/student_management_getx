@@ -21,7 +21,6 @@ class StudentDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Picture
             Center(
               child: CircleAvatar(
                 radius: 60,

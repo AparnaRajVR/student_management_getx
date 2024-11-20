@@ -6,7 +6,7 @@ import '../../controller/services.dart';
 import '../widget/custom_textform.dart';
 
 class AddStudentPage extends StatelessWidget {
-  AddStudentPage({Key? key}) : super(key: key);
+  AddStudentPage({super.key});
 
   final StudentController controller = Get.find<StudentController>();
   final TextEditingController nameController = TextEditingController();
@@ -33,20 +33,24 @@ class AddStudentPage extends StatelessWidget {
           key: _formKey,
           child: Column(
             children: [
-              // Profile Image Section
+              // Profile Image Picker
               Center(
                 child: Stack(
                   children: [
-                    Obx(() => CircleAvatar(
-                      radius: 65,
-                      backgroundColor: Colors.grey[200],
-                      backgroundImage: controller.selectedImage.value.isNotEmpty
-                          ? FileImage(File(controller.selectedImage.value))
-                          : null,
-                      child: controller.selectedImage.value.isEmpty
-                          ? const Icon(Icons.person, size: 40, color: Colors.grey)
-                          : null,
-                    )),
+                    Obx(
+                      () => CircleAvatar(
+                        radius: 65,
+                        backgroundColor: Colors.grey[200],
+                        backgroundImage: controller
+                                .selectedImage.value.isNotEmpty
+                            ? FileImage(File(controller.selectedImage.value))
+                            : null,
+                        child: controller.selectedImage.value.isEmpty
+                            ? const Icon(Icons.person,
+                                size: 40, color: Colors.grey)
+                            : null,
+                      ),
+                    ),
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -56,7 +60,8 @@ class AddStudentPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: IconButton(
-                          icon: const Icon(Icons.camera_alt, color: Colors.white),
+                          icon:
+                              const Icon(Icons.camera_alt, color: Colors.white),
                           onPressed: () => _showImageSourceDialog(context),
                         ),
                       ),
@@ -65,7 +70,7 @@ class AddStudentPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               // Custom Form Fields
               CustomTextfield(
                 controller: nameController,
@@ -74,7 +79,6 @@ class AddStudentPage extends StatelessWidget {
                 keyboardtype: TextInputType.text,
               ),
               const SizedBox(height: 16),
-              
               CustomTextfield(
                 controller: placeController,
                 prefixIcon: const Icon(Icons.place),
@@ -82,7 +86,6 @@ class AddStudentPage extends StatelessWidget {
                 keyboardtype: TextInputType.text,
               ),
               const SizedBox(height: 16),
-              
               CustomTextfield(
                 controller: emailController,
                 prefixIcon: const Icon(Icons.email),
@@ -90,34 +93,39 @@ class AddStudentPage extends StatelessWidget {
                 keyboardtype: TextInputType.emailAddress,
               ),
               const SizedBox(height: 16),
-              
               CustomTextfield(
                 controller: phoneController,
                 prefixIcon: const Icon(Icons.phone),
                 labelText: 'Phone',
                 keyboardtype: TextInputType.phone,
               ),
-              const SizedBox(height: 32),
-              
-              // Buttons
+              const SizedBox(height: 40),
+
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ElevatedButton(
-                    onPressed: () => Get.back(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => Get.back(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                      ),
+                      child: const Text('Cancel',
+                          style: TextStyle(color: Colors.white)),
                     ),
-                    child: const Text('Cancel', style: TextStyle(color: Colors.white)),
                   ),
-                  ElevatedButton(
-                    onPressed: _saveStudent,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  const SizedBox(width: 27),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _saveStudent,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal,
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                      ),
+                      child: const Text('Save',
+                          style: TextStyle(color: Colors.white)),
                     ),
-                    child: const Text('Save', style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
@@ -168,12 +176,6 @@ class AddStudentPage extends StatelessWidget {
         imageUrl: controller.selectedImage.value,
       );
       Get.back();
-      Get.snackbar(
-        'Success',
-        'Student added successfully',
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
     }
   }
 }

@@ -8,22 +8,22 @@ import '../model/studentmodel.dart';
 class StudentController extends GetxController {
   final Box<StudentModel> nameBox = Hive.box<StudentModel>('studentsBox');
 
-  // Reactive variables
+  
   RxList<StudentModel> filteredStudents = <StudentModel>[].obs;
-  RxString query = ''.obs; // Search query for filtering students
-  RxString selectedImage = ''.obs; // Reactive selected image path
+  RxString query = ''.obs; 
+  RxString selectedImage = ''.obs; 
 
   @override
   void onInit() {
     super.onInit();
-    // Initially load all students into filteredStudents
+
     filteredStudents.value = nameBox.values.toList();
   }
 
-  // Getter for all students
+ 
   List<StudentModel> get names => nameBox.values.toList();
 
-  // Add a new student
+  
   void addStudent({
     required String name,
     required String place,
@@ -38,10 +38,10 @@ class StudentController extends GetxController {
       phone: phone,
       imageUrl: imageUrl,
     ));
-    updateFilteredStudents(); // Update filtered list
+    updateFilteredStudents(); 
   }
 
-  // Update an existing student
+ 
   void updateStudent(
     int index, {
     required String name,
@@ -60,20 +60,20 @@ class StudentController extends GetxController {
         imageUrl: imageUrl,
       ),
     );
-    updateFilteredStudents(); // Update filtered list
+    updateFilteredStudents(); 
   }
 
-  // Delete a student
+ 
   void deleteStudent(int index) {
     nameBox.deleteAt(index);
-    updateFilteredStudents(); // Update filtered list
+    updateFilteredStudents(); 
   }
 
-  // Search for students
+
   void filterStudents(String searchQuery) {
-    query.value = searchQuery; // Update search query
+    query.value = searchQuery; 
     if (searchQuery.isEmpty) {
-      updateFilteredStudents(); // If search is empty, show all students
+      updateFilteredStudents(); 
     } else {
       filteredStudents.value = names.where((student) {
         return student.name.toLowerCase().contains(searchQuery.toLowerCase());
@@ -81,24 +81,24 @@ class StudentController extends GetxController {
     }
   }
 
-  // Update filteredStudents list with all students
+ 
   void updateFilteredStudents() {
     filteredStudents.value = names;
   }
 
-  // Pick an image and update the selected image path
+
   Future<File?> pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: source);
 
     if (pickedImage != null) {
-      selectedImage.value = pickedImage.path; // Update reactive variable
+      selectedImage.value = pickedImage.path; 
       return File(pickedImage.path);
     }
     return null;
   }
 
-  // Clear the selected image path
+  
   void clearSelectedImage() {
     selectedImage.value = '';
   }

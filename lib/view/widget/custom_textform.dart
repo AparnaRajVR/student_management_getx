@@ -5,7 +5,7 @@ class CustomTextfield extends StatelessWidget {
   final Icon prefixIcon;
   final String labelText;
   final TextInputType keyboardtype;
-  final ValueChanged<String>? onChanged; // Nullable and optional
+  final ValueChanged<String>? onChanged; 
 
   const CustomTextfield({
     super.key,
